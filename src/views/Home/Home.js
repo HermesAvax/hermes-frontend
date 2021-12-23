@@ -62,8 +62,8 @@ const Home = () => {
     tShare = tShareProd;
   }
 
-  const buyTombAddress = 'https://traderjoexyz.com/#/trade?outputCurrency=' + tomb.address;
-  const buyTShareAddress = 'https://traderjoexyz.com/#/trade?outputCurrency=' + tShare.address;
+  const buyTombAddress = 'https://app.pangolin.exchange/#/swap?outputCurrency=' + tomb.address;
+  const buyTShareAddress = 'https://app.pangolin.exchange/#/swap?outputCurrency=' + tShare.address;
 
   const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
   const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
@@ -162,7 +162,7 @@ const Home = () => {
     <Grid item  xs={12} sm={12} justify="center"  style={{ margin: '12px', display: 'flex' }}>
             <Alert variant="filled" severity="warning">
               <b>
-      Please visit our <StyledLink target="_blank" href="https://docs.hermes.finance">documentation</StyledLink> before purchasing HERMES or HSHARE!</b>
+      Please visit our <StyledLink target="_blank" href="https://docs.hermesfinance.app">documentation</StyledLink> before purchasing HERMES or HSHARE!</b>
             </Alert>
         </Grid>
         </Grid>
