@@ -146,7 +146,7 @@ const Home = () => {
           <Paper>
             <Box p={4}>
               <h2>Welcome to Hermes Finance</h2>
-              <p>One of The first algorithmic stablecoin on Fantom Opera, pegged to the price of 1 AVAX via seigniorage.</p>
+              <p>One of The first algorithmic stablecoin on Avalanche C Chain, pegged to the price of 1 AVAX via seigniorage.</p>
               <p>
                 Stake your HERMES-AVAX LP in the Crete to earn HSHARE rewards.
                 Then stake your earned HSHARE in the Olympus to earn more HERMES!
