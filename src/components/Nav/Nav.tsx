@@ -113,7 +113,7 @@ const Nav = () => {
               <Link color="textPrimary" to="/tartarus" className={classes.link}>
                 Tartarus
               </Link>
-              <a href="https://docs.hermes.finance" className={classes.link}>
+              <a href="https://docs.hermesfinance.app" className={classes.link}>
                 Docs
               </a>
             </Box>
@@ -156,7 +156,7 @@ const Nav = () => {
                 <ListItemLink primary="Crete" to="/crete" />
                 <ListItemLink primary="Olympus" to="/olympus" />
                 <ListItemLink primary="Tartarus" to="/tartarus" />
-                <ListItem button component="a" href="https://docs.hermes.finance">
+                <ListItem button component="a" href="https://docs.hermesfinance.app">
                   <ListItemText>Docs</ListItemText>
                 </ListItem>
                 <ListItem style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
