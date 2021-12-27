@@ -5,18 +5,18 @@ import { BankInfo } from './tomb-finance';
 
 const configurations: { [env: string]: Configuration } = {
   development: {
-    chainId: ChainId.FUJI,
-    networkName: 'Avalanche Fuji Testnet',
-    ftmscanUrl: 'https://testnet.snowtrace.io/',
-    defaultProvider: 'https://api.avax-test.network/ext/bc/C/rpc',
-    deployments: require('./tomb-finance/deployments/deployments.testing.json'),
+ chainId: ChainId.AVALANCHE,
+    networkName: 'Avalanche C Chain',
+    ftmscanUrl: 'https://snowtrace.io/',
+    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
+    deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
-      WFTM: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 18],
-      FUSDT: ['0x8e58A291d094824f68C8fbbf038370CBDe9015d1', 6],
-      BOO: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 18],
-      ZOO: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 0],
-      SHIBA: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 9],
-      'USDT-FTM-LP': ['0x974ff949F233D52e8617C2F4C0d2D8dF386df7F0', 18],
+      WFTM: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
+      FUSDT: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6], // This is actually usdc on mainnet not fusdt
+      BOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
+      ZOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 0],
+      SHIBA: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 9],
+      'USDT-FTM-LP': ['0xbd918ed441767fe7924e99f6a0e0b568ac1970d9', 18],
       'HERMES-AVAX-LP': ['0x3336300120b693c9d807d1C8E8Cb8059594cfB8f', 18],
       'HSHARE-AVAX-LP': ['0x431865a482A49B3f3b82226b39A4dEEcc7F2f201', 18],
     },
@@ -26,18 +26,18 @@ const configurations: { [env: string]: Configuration } = {
     refreshInterval: 10000,
   },
   production: {
-    chainId: ChainId.FUJI,
-    networkName: 'Avalanche Fuji Testnet',
-    ftmscanUrl: 'https://testnet.snowtrace.io/',
-    defaultProvider: 'https://api.avax-test.network/ext/bc/C/rpc',
+    chainId: ChainId.AVALANCHE,
+    networkName: 'Avalanche C Chain',
+    ftmscanUrl: 'https://snowtrace.io/',
+    defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',
     deployments: require('./tomb-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
-      WFTM: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 18],
-      FUSDT: ['0x8e58A291d094824f68C8fbbf038370CBDe9015d1', 6], // This is actually usdc on mainnet not fusdt
-      BOO: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 18],
-      ZOO: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 0],
-      SHIBA: ['0xd00ae08403b9bbb9124bb305c09058e32c39a48c', 9],
-      'USDT-FTM-LP': ['0x974ff949F233D52e8617C2F4C0d2D8dF386df7F0', 18],
+      WFTM: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
+      FUSDT: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6], // This is actually usdc on mainnet not fusdt
+      BOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
+      ZOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 0],
+      SHIBA: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 9],
+      'USDT-FTM-LP': ['0xbd918ed441767fe7924e99f6a0e0b568ac1970d9', 18],
       'HERMES-AVAX-LP': ['0x3336300120b693c9d807d1C8E8Cb8059594cfB8f', 18],
       'HSHARE-AVAX-LP': ['0x431865a482A49B3f3b82226b39A4dEEcc7F2f201', 18],
     },

@@ -491,8 +491,8 @@ export class TombFinance {
     // const { chainId } = this.config;
     const { WFTM } = this.config.externalTokens;
 
-    const wftm = new Token(43113, WFTM[0], WFTM[1]);
-    const token = new Token(43113, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
+    const wftm = new Token(43114, WFTM[0], WFTM[1]);
+    const token = new Token(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
       const wftmToToken = await Fetcher.fetchPairData(wftm, token, this.provider);
       const priceInBUSD = new Route([wftmToToken], token);
@@ -511,8 +511,8 @@ export class TombFinance {
 
     const { WFTM } = this.externalTokens;
 
-    const wftm = new TokenSpirit(43113, WFTM.address, WFTM.decimal);
-    const token = new TokenSpirit(43113, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
+    const wftm = new TokenSpirit(43114, WFTM.address, WFTM.decimal);
+    const token = new TokenSpirit(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
       const wftmToToken = await FetcherSpirit.fetchPairData(wftm, token, this.provider);
       const liquidityToken = wftmToToken.liquidityToken;
