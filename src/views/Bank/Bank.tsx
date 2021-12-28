@@ -108,10 +108,10 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('HERMES')) {
     pairName = 'HERMES-AVAX pair';
-    uniswapUrl = 'https://app.pangolin.exchange/#/add/AVAX' + tombAddr;
+    uniswapUrl = 'https://app.pangolin.exchange/#/add/AVAX/' + tombAddr;
   } else {
     pairName = 'HSHARE-AVAX pair';
-    uniswapUrl = 'https://app.pangolin.exchange/#/add/AVAX' + tshareAddr;
+    uniswapUrl = 'https://app.pangolin.exchange/#/add/AVAX/' + tshareAddr;
   }
   return (
     <Card>
