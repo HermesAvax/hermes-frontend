@@ -92,7 +92,7 @@ const Pit: React.FC = () => {
                 <Spacer size="md" />
                 <ExchangeStat
                   tokenName="HBOND"
-                  description="Current Price: (TOMB)^2"
+                  description="Current Price: (HERMES)^2"
                   price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
