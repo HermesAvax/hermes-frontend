@@ -108,7 +108,7 @@ const Home = () => {
     text-decoration: none;
   `;
   
-  const [onDissmissTombZap] = useModal(
+  const [onPresentTombZap, onDissmissTombZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
@@ -120,7 +120,7 @@ const Home = () => {
     />,
   );
 
-  const [onDissmissTshareZap] = useModal(
+  const [onPresentTshareZap, onDissmissTshareZap] = useModal(
     <ZapModal
       decimals={18}
       onConfirm={(zappingToken, tokenName, amount) => {
@@ -327,6 +327,11 @@ const Home = () => {
                 </CardIcon>
               </Box>
               <Box mt={2}>
+                <Button color="primary" disabled={false} onClick={onPresentTombZap} variant="contained">
+                  Zap In
+                </Button>
+              </Box>
+              <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>
                   {tombLPStats?.tokenAmount ? tombLPStats?.tokenAmount : '-.--'} HERMES /{' '}
                   {tombLPStats?.ftmAmount ? tombLPStats?.ftmAmount : '-.--'} AVAX
@@ -348,6 +353,11 @@ const Home = () => {
                 <CardIcon>
                   <TokenSymbol symbol="HSHARE-AVAX-LP" />
                 </CardIcon>
+              </Box>
+              <Box mt={2}>
+                <Button color="primary" onClick={onPresentTshareZap} variant="contained">
+                  Zap In
+                </Button>
               </Box>
               <Box mt={2}>
                 <span style={{ fontSize: '26px' }}>

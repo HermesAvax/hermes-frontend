@@ -5,7 +5,7 @@ import { BankInfo } from './tomb-finance';
 
 const configurations: { [env: string]: Configuration } = {
   development: {
- chainId: ChainId.AVALANCHE,
+    chainId: ChainId.AVALANCHE,
     networkName: 'Avalanche C Chain',
     ftmscanUrl: 'https://snowtrace.io/',
     defaultProvider: 'https://api.avax.network/ext/bc/C/rpc',

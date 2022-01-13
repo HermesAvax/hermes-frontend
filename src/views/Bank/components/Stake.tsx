@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 import styled from 'styled-components';
 
 // import Button from '../../../components/Button';
@@ -10,6 +10,8 @@ import { AddIcon, RemoveIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
 import Value from '../../../components/Value';
+import FlashOnIcon from '@material-ui/icons/FlashOn';
+import { ThemeContext } from 'styled-components';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
@@ -35,7 +37,7 @@ interface StakeProps {
 const Stake: React.FC<StakeProps> = ({ bank }) => {
   const [approveStatus, approve] = useApprove(bank.depositToken, bank.address);
 
- // const { color: themeColor } = useContext(ThemeContext);
+  const { color: themeColor } = useContext(ThemeContext);
   const tokenBalance = useTokenBalance(bank.depositToken);
   const stakedBalance = useStakedBalance(bank.contract, bank.poolId);
   const stakedTokenPriceInDollars = useStakedTokenPriceInDollars(bank.depositTokenName, bank.depositToken);
@@ -63,7 +65,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
     />,
   );
 
-  const [onDissmissZap] = useModal(
+  const [onPresentZap, onDissmissZap] = useModal(
     <ZapModal
       decimals={bank.depositToken.decimal}
       onConfirm={(zappingToken, tokenName, amount) => {
@@ -121,6 +123,12 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
+                <IconButton
+                  disabled={bank.closedForStaking}
+                  onClick={() => (bank.closedForStaking ? null : onPresentZap())}
+                >
+                  <FlashOnIcon style={{ color: themeColor.grey[400] }} />
+                </IconButton>
                 <StyledActionSpacer />
                 <IconButton
                   disabled={bank.closedForStaking}
