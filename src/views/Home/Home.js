@@ -188,6 +188,7 @@ const Home = () => {
     </Modal>,
   );
 
+  
   return (
     <Page>
       <BackgroundImage />
