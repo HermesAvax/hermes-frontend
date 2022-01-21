@@ -12,15 +12,19 @@ const newTheme = createMuiTheme({
       paper: 'rgba(255, 255, 255, 0.9)',
     },
     primary: {
-      light: '#757ce8',
+      light: '#FFD170',
       main: '#FFAE00',
-      dark: '#2c2560',
+      dark: '#FFD170',
       contrastText: '#000',
     },
+    discord :{
+      light: '#6043f7',
+      main: '#6043f7',
+    },
     secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
+      light: '#6043f7',
+      main: '#6043f7',
+      dark: '#757ce8',
       contrastText: '#000',
     },
     action: {
@@ -31,7 +35,7 @@ const newTheme = createMuiTheme({
   },
   typography: {
     color: '#2c2560',
-    fontFamily: ['"Poppins"', 'sans-serif'].join(','),
+    fontFamily: ['"Roboto"', 'sans-serif'].join(','),
   },
 });
 

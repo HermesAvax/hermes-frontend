@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Card } from '@material-ui/core';
+// import { Card } from '@material-ui/core';
+import Card from '../../../components/Card';
 
 interface ExchangeStatProps {
   tokenName: string;

@@ -32,6 +32,7 @@
     "react": "^16.13.1",
     "react-circular-progressbar": "^2.0.3",
     "react-countdown": "^2.2.1",
+    "react-countdown-circle-timer": "^3.0.6",
     "react-countup": "^4.3.3",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
@@ -47,7 +48,7 @@
     "web3": "^1.2.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3006 react-scripts start",
     "build": "CI= GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

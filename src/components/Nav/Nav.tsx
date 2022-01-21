@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import {
@@ -13,6 +13,7 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  Button,
 } from '@material-ui/core';
 
 import ListItemLink from '../ListItemLink';
@@ -22,7 +23,13 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AccountButton from './AccountButton';
+import DiscordImage from '../../assets/img/discord.svg';
+import logo4 from '../../assets/img/logo_hermes4.png';
+import logohshare2 from '../../assets/img/logo_hshare2.png';
+import useTombStats from '../../hooks/useTombStats';
+import usetShareStats from '../../hooks/usetShareStats';
 
+const logo = require('../../assets/img/logo_hermes3.png');
 const useStyles = makeStyles((theme) => ({
   '@global': {
     ul: {
@@ -33,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     color: '#e0e3bd',
-    'background-color': '#121212',
+    'background-color': 'transparent',
     // borderBottom: `1px solid ${theme.palette.divider}`,
-    padding: '10px',
+    padding: '30px',
     marginBottom: '3rem',
   },
   drawer: {
@@ -49,18 +56,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   toolbar: {
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap',
   },
   toolbarTitle: {
-    fontFamily: '"Amarante", cursive',
+    fontFamily: '"Roboto", cursive',
     fontSize: '30px',
-    flexGrow: 1,
   },
   link: {
-    textTransform: 'uppercase',
-    color: '#e0e3bd',
-    fontSize: '14px',
-    margin: theme.spacing(1, 2),
+    fontFamily: '"Roboto", cursive',
+    color: '#161D29',
+    fontSize: '18px',
+    margin: '14%',
     textDecoration: 'none',
     '&:hover': {
       textDecoration: 'none',
@@ -68,18 +74,29 @@ const useStyles = makeStyles((theme) => ({
   },
   brandLink: {
     textDecoration: 'none',
-    color: '#e0e3bd',
+    color: '#CCA250',
     '&:hover': {
       textDecoration: 'none',
     },
   },
 }));
 
+
 const Nav = () => {
   const matches = useMediaQuery('(min-width:900px)');
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const tombStats = useTombStats();
+  const tShareStats = usetShareStats();
+  const tombPriceInDollars = useMemo(
+    () => (tombStats ? Number(tombStats.priceInDollars).toFixed(2) : null),
+    [tombStats],
+  );
+  const tSharePriceInDollars = useMemo(
+    () => (tShareStats ? Number(tShareStats.priceInDollars).toFixed(2) : null),
+    [tShareStats],
+  );
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -90,17 +107,17 @@ const Nav = () => {
   };
 
   return (
-    <AppBar position="sticky" elevation={0} className={classes.appBar}>
+    <AppBar position="static" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         {matches ? (
           <>
             <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-              {/* <a className={ classes.brandLink } href="/">Tomb Finance</a> */}
+            
               <Link to="/" color="inherit" className={classes.brandLink}>
-                Hermes Finance
+              <img alt='logo' style={{ width: 350 }} src={String(logo)} />
               </Link>
             </Typography>
-            <Box mr={5}>
+            <Box style={{ marginRight:'38%'}}>
               <Link color="textPrimary" to="/" className={classes.link}>
                 Home
               </Link>
@@ -117,7 +134,14 @@ const Nav = () => {
                 Docs
               </a>
             </Box>
-            <AccountButton text="Connect" />
+              <img alt='logo4' style={{ width: 50 }} src={String(logo4)} />
+              <span style={{ fontSize: '16px', color:'#000000', marginRight: '15px', marginLeft: '10px' }}>${tombPriceInDollars ? tombPriceInDollars	 : '-.--'}</span>
+              <img alt='logoshare' style={{ width: 50 }} src={String(logohshare2)} />
+              <span style={{ fontSize: '16px', color:'#000000', marginRight: '30px', marginLeft: '10px' }}>${tSharePriceInDollars ? tSharePriceInDollars	 : '-.--'}</span>
+            <Button href="https://discord.gg/KbHU9hrayQ" variant="contained" color='secondary' style={{ marginRight: '25px', borderRadius: '14px', width: '60px' }}>
+            <img alt='discordlogo' style={{ width: 22 }} src={String(DiscordImage)} />
+              </Button>
+            <AccountButton text="Connect"/>
           </>
         ) : (
           <>

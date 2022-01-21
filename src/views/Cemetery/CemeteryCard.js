@@ -1,47 +1,80 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Card, CardActions, CardContent, Typography, Grid } from '@material-ui/core';
+import { Box, Button, CardActions, CardContent, Typography, Grid } from '@material-ui/core';
+import Card from '../../components/Card';
 
 import TokenSymbol from '../../components/TokenSymbol';
+import useLpStats from '../../hooks/useLpStats';
 
-const CemeteryCard = ({ bank }) => {
+const CemeteryCard = () => {
+  const tombFtmLpStats = useLpStats('HERMES-AVAX-LP');
+  const tShareFtmLpStats = useLpStats('HSHARE-AVAX-LP');
+  const tombLPStats = useMemo(() => (tombFtmLpStats ? tombFtmLpStats : null), [tombFtmLpStats]);
+  const tshareLPStats = useMemo(() => (tShareFtmLpStats ? tShareFtmLpStats : null), [tShareFtmLpStats]);
   return (
-    <Grid item xs={12} md={4} lg={5}>
-      <Card variant="primary">
-        <CardContent>
-          <Box style={{ position: 'relative' }}>
-            <Box
-              style={{
-                position: 'absolute',
-                right: '0px',
-                top: '-5px',
-                height: '48px',
-                width: '48px',
-                borderRadius: '40px',
-                backgroundColor: 'white',
-                alignItems: 'center',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              <TokenSymbol size={60} symbol={bank.depositTokenName} />
-            </Box>
-            <Typography variant="h5" component="h2">
-              {bank.depositTokenName}
+    <Grid container spacing={3}>
+    <Grid item xs={12} sm={6}>
+    <Card>
+      <CardContent align="center">
+          <Typography variant="h5" component="h2">
+              HERMES-AVAX-LP
             </Typography>
-            <Typography color="textSecondary">
-              {/* {bank.name} */}
-              Deposit {bank.depositTokenName.toUpperCase()} Earn {` ${bank.earnTokenName}`}
-            </Typography>
-          </Box>
-        </CardContent>
-        <CardActions style={{ justifyContent: 'flex-end' }}>
-          <Button color="primary" size="small" variant="contained" component={Link} to={`/crete/${bank.contract}`}>
+        <Box mt={2}>
+            <TokenSymbol symbol="HERMES-AVAX-LP" />
+        </Box>
+        <Box mt={2}>
+        </Box>
+        <Box mt={2}>
+          <span style={{ fontSize: '26px' }}>
+            {tombLPStats?.tokenAmount ? tombLPStats?.tokenAmount : '-.--'} HERMES /{' '}
+            {tombLPStats?.ftmAmount ? tombLPStats?.ftmAmount : '-.--'} AVAX
+          </span>
+        </Box>
+        <Box>${tombLPStats?.priceOfOne ? tombLPStats.priceOfOne : '-.--'}</Box>
+        <span style={{ fontSize: '12px' }}>
+          Liquidity: ${tombLPStats?.totalLiquidity ? tombLPStats.totalLiquidity : '-.--'} <br />
+          Total supply: {tombLPStats?.totalSupply ? tombLPStats.totalSupply : '-.--'}
+        </span>
+      </CardContent>
+      <CardActions style={{ justifyContent: 'center' }}>
+          <Button color="primary" size='small' style={{ width: '400px'}} variant="contained" component={Link} to={`/crete/HermesAvaxLPHShareRewardPool/`}>
             View
           </Button>
         </CardActions>
-      </Card>
+    </Card>
     </Grid>
+    <Grid item xs={12} sm={6}>
+      <Card>
+        <CardContent align="center">
+            <Typography variant="h5" component="h2">
+            HSHARE-AVAX-LP
+              </Typography>
+          <Box mt={2}>
+              <TokenSymbol symbol="HSHARE-AVAX-LP" />
+          </Box>
+          <Box mt={2}>
+          </Box>
+          <Box mt={2}>
+          <span style={{ fontSize: '26px' }}>
+                  {tshareLPStats?.tokenAmount ? tshareLPStats?.tokenAmount : '-.--'} HSHARE /{' '}
+                  {tshareLPStats?.ftmAmount ? tshareLPStats?.ftmAmount : '-.--'} AVAX
+                </span>
+          </Box>
+          <Box>${tshareLPStats?.priceOfOne ? tshareLPStats.priceOfOne : '-.--'}</Box>
+              <span style={{ fontSize: '12px' }}>
+                Liquidity: ${tshareLPStats?.totalLiquidity ? tshareLPStats.totalLiquidity : '-.--'}
+                <br />
+                Total supply: {tshareLPStats?.totalSupply ? tshareLPStats.totalSupply : '-.--'}
+              </span>
+        </CardContent>
+        <CardActions style={{ justifyContent: 'center' }}>
+            <Button color="primary" size='small' style={{ width: '400px'}} variant="contained" component={Link} to={`/crete/HshareAvaxLPHShareRewardPool/`}>
+              View
+            </Button>
+          </CardActions>
+      </Card>
+      </Grid>
+      </Grid>
   );
 };
 

@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Box, Button, Card, CardContent, Typography } from '@material-ui/core';
+import { Box, Button, CardContent, Typography } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
-// import Card from '../../../components/Card';
+import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
-import CardIcon from '../../../components/CardIcon';
+// import CardIcon from '../../../components/CardIcon';
 import { AddIcon, RemoveIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
@@ -80,9 +80,7 @@ const Stake: React.FC = () => {
         <CardContent>
           <StyledCardContentInner>
             <StyledCardHeader>
-              <CardIcon>
                 <TokenSymbol symbol="HSHARE" />
-              </CardIcon>
               <Value value={getDisplayBalance(stakedBalance)} />
               <Label text={`≈ $${tokenPriceInDollars}`} />
               <Label text={'HSHARE Staked'} />
@@ -93,13 +91,14 @@ const Stake: React.FC = () => {
                   disabled={approveStatus !== ApprovalState.NOT_APPROVED}
                   variant="contained"
                   color="primary"
-                  style={{ marginTop: '20px' }}
+                  style={{ marginTop: '65px' }}
                   onClick={approve}
                 >
                   Approve HSHARE
                 </Button>
               ) : (
                 <>
+                <StyledCardActions2>
                   <IconButton disabled={!canWithdrawFromMasonry} onClick={onPresentWithdraw}>
                     <RemoveIcon/>
                   </IconButton>
@@ -107,6 +106,7 @@ const Stake: React.FC = () => {
                   <IconButton onClick={onPresentDeposit}>
                     <AddIcon />
                   </IconButton>
+                  </StyledCardActions2>
                 </>
               )}
             </StyledCardActions>
@@ -140,10 +140,16 @@ const StyledCardActions = styled.div`
   margin-top: 28px;
   width: 100%;
 `;
+const StyledCardActions2 = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+  width: 100%;
+`;
 
 const StyledActionSpacer = styled.div`
   height: ${(props) => props.theme.spacing[4]}px;
-  width: ${(props) => props.theme.spacing[4]}px;
+  width: ${(props) => props.theme.spacing[6]}px;
 `;
 
 const StyledCardContentInner = styled.div`

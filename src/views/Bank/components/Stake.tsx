@@ -2,10 +2,10 @@ import React, { useMemo, useContext } from 'react';
 import styled from 'styled-components';
 
 // import Button from '../../../components/Button';
-import { Button, Card, CardContent } from '@material-ui/core';
-// import Card from '../../../components/Card';
+import { Button, CardContent/*, Grid */} from '@material-ui/core';
+import Card from '../../../components/Card';
 // import CardContent from '../../../components/CardContent';
-import CardIcon from '../../../components/CardIcon';
+// import CardIcon from '../../../components/CardIcon';
 import { AddIcon, RemoveIcon } from '../../../components/icons';
 import IconButton from '../../../components/IconButton';
 import Label from '../../../components/Label';
@@ -95,9 +95,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
       <CardContent>
         <StyledCardContentInner>
           <StyledCardHeader>
-            <CardIcon>
-              <TokenSymbol symbol={bank.depositToken.symbol} size={54} />
-            </CardIcon>
+              <TokenSymbol symbol={bank.depositToken.symbol} size={100} />
             <Value value={getDisplayBalance(stakedBalance, bank.depositToken.decimal)} />
             <Label text={`≈ $${earnedInDollars}`} />
             <Label text={`${bank.depositTokenName} Staked`} />
@@ -113,12 +111,13 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                 onClick={approve}
                 color="primary"
                 variant="contained"
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: '65px', borderRadius: '15px', width: '250px' }}
               >
                 {`Approve ${bank.depositTokenName}`}
               </Button>
             ) : (
               <>
+              <StyledCardActions2>
                 <IconButton onClick={onPresentWithdraw}>
                   <RemoveIcon />
                 </IconButton>
@@ -136,6 +135,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                 >
                   <AddIcon />
                 </IconButton>
+                </StyledCardActions2>
               </>
             )}
           </StyledCardActions>
@@ -156,6 +156,13 @@ const StyledCardActions = styled.div`
   margin-top: 28px;
   width: 100%;
 `;
+const StyledCardActions2 = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+  width: 100%;
+`;
+
 
 const StyledActionSpacer = styled.div`
   height: ${(props) => props.theme.spacing[4]}px;

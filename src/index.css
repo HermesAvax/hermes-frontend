@@ -24,7 +24,7 @@ body {
 .MuiTypography-body1,
 .MuiPaper-root,
 .MuiPaper-root h2 {
-  color: #2c2560 !important;
+  color: #ffffff !important;
 }
 
 body {
@@ -53,14 +53,14 @@ footer .a:hover {
 }
 
 .MuiToolbar-regular {
-  color: #e0e3bd;
+  color: #1b1b1b;
 }
 
 .MuiButton-containedPrimary,
 .MuiButton-containedPrimary:hover,
 .MuiListItem-button:hover,
 .MuiButtonBase-root:hover {
-  color: #fff !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 code {
@@ -69,7 +69,7 @@ code {
 
 .wallet-button {
   color: #2c2560 !important;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Roboto', sans-serif !important;
   font-size: 1.1rem !important;
   text-align: left !important;
   justify-content: flex-start !important;
