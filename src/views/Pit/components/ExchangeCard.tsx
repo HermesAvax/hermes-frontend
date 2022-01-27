@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button, Card } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 // import Button from '../../../components/Button';
-// import Card from '../../../components/Card';
+ import Card from '../../../components/Card';
 import CardContent from '../../../components/CardContent';
 import useTombFinance from '../../../hooks/useTombFinance';
 import Label from '../../../components/Label';

@@ -33,23 +33,17 @@ const Cemetery = () => {
           <BackgroundImage />
           {!!account ? (
             <Container maxWidth="lg">
-              <Typography color="primary.dark" align="center" variant="h3" gutterBottom>
+              <Typography color="primary.dark" align="center" variant="h2" gutterBottom>
                 Crete
               </Typography>
 
               <Box mt={5}>
                 <div hidden={activeBanks.filter((bank) => bank.sectionInUI === 2).length === 0}>
-                  <Typography color="primary.dark" variant="h4" gutterBottom>
+                  <Typography color="primary.dark" align='center' variant="h4" gutterBottom>
                     Earn HSHARE by staking LP
                   </Typography>
                   <Grid container spacing={3}>
-                    {activeBanks
-                      .filter((bank) => bank.sectionInUI === 2)
-                      .map((bank) => (
-                        <React.Fragment key={bank.name}>
-                          <CemeteryCard bank={bank} />
-                        </React.Fragment>
-                      ))}
+                    <CemeteryCard />
                   </Grid>
                 </div>
 {/* 

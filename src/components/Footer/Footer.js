@@ -6,7 +6,6 @@ import GithubImage from '../../assets/img/github.svg';
 /*import TelegramImage from '../../assets/img/telegram.svg';*/
 import DiscordImage from '../../assets/img/discord.svg';
 
-
 const useStyles = makeStyles((theme) => ({
   footer: {
     position: 'absolute',
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '15px',
     width: '100%',
     color: 'white',
-    backgroundColor: '#121212',
+    backgroundColor: 'transparent',
     textAlign: 'center',
     height: '1.3rem',
     [theme.breakpoints.down('xs')]: {
@@ -33,6 +32,14 @@ const useStyles = makeStyles((theme) => ({
     width: '24px',
     height: '24px',
   },
+  elipse:{
+    position: 'absolute',
+    width: '80px',
+    height: '80px',
+    left: '1700px',
+    top: '-100px',
+
+  },
 }));
 
 const Footer = () => {
@@ -41,8 +48,8 @@ const Footer = () => {
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <Grid container>
-          <Grid item xs={6}>
-            <Typography variant="body2" color="textSecondary" align="left">
+          <Grid item xs={12}>
+            <Typography variant="body2" style={{ color: "#000000"}} align="center">
               {'Copyright © '}
               <Link color="inherit" href="/">
                 Hermes Finance
@@ -50,7 +57,7 @@ const Footer = () => {
               {new Date().getFullYear()}
             </Typography>
           </Grid>
-          <Grid item xs={6} style={{ textAlign: 'right' }}>
+          <Grid item xs={12} style={{ textAlign: 'center', marginTop: '10px' }}>
             <a
               href="https://twitter.com/hermes_avax"
               rel="noopener noreferrer"
@@ -67,12 +74,13 @@ const Footer = () => {
             >
               <img alt="github" src={GithubImage} className={classes.img} />
             </a>
-            <a href="https://discord.com/invite/hermesfinance" rel="noopener noreferrer" target="_blank" className={classes.link}>
+            <a href="https://discord.gg/Trjv7XC5bT" rel="noopener noreferrer" target="_blank" className={classes.link}>
               <img alt="discord" src={DiscordImage} className={classes.img} />
             </a>
           </Grid>
         </Grid>
       </Container>
+
     </footer>
   );
 };

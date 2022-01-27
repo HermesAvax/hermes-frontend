@@ -7,15 +7,16 @@ import Harvest from './components/Harvest';
 import Stake from './components/Stake';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Box, Card, CardContent, Button, Typography, Grid } from '@material-ui/core';
+import { Box, Card, CardContent, /* Button ,*/ Typography, Grid } from '@material-ui/core';
+// import Card from '../../components/Card';
 
 import { Alert } from '@material-ui/lab';
 
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
 
-import useRedeemOnMasonry from '../../hooks/useRedeemOnMasonry';
-import useStakedBalanceOnMasonry from '../../hooks/useStakedBalanceOnMasonry';
+// import useRedeemOnMasonry from '../../hooks/useRedeemOnMasonry';
+// import useStakedBalanceOnMasonry from '../../hooks/useStakedBalanceOnMasonry';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useCurrentEpoch from '../../hooks/useCurrentEpoch';
 import useFetchMasonryAPR from '../../hooks/useFetchMasonryAPR';
@@ -23,8 +24,8 @@ import useFetchMasonryAPR from '../../hooks/useFetchMasonryAPR';
 import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
 import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
 import useTotalStakedOnMasonry from '../../hooks/useTotalStakedOnMasonry';
-import useClaimRewardCheck from '../../hooks/masonry/useClaimRewardCheck';
-import useWithdrawCheck from '../../hooks/masonry/useWithdrawCheck';
+// import useClaimRewardCheck from '../../hooks/masonry/useClaimRewardCheck';
+// import useWithdrawCheck from '../../hooks/masonry/useWithdrawCheck';
 import ProgressCountdown from './components/ProgressCountdown';
 import MasonryImage from '../../assets/img/none.png';
 import { createGlobalStyle } from 'styled-components';
@@ -48,14 +49,14 @@ const useStyles = makeStyles((theme) => ({
 const Masonry = () => {
   const classes = useStyles();
   const { account } = useWallet();
-  const { onRedeem } = useRedeemOnMasonry();
-  const stakedBalance = useStakedBalanceOnMasonry();
+  // const { onRedeem } = useRedeemOnMasonry();
+  // const stakedBalance = useStakedBalanceOnMasonry();
   const currentEpoch = useCurrentEpoch();
   const cashStat = useCashPriceInEstimatedTWAP();
   const totalStaked = useTotalStakedOnMasonry();
   const masonryAPR = useFetchMasonryAPR();
-  const canClaimReward = useClaimRewardCheck();
-  const canWithdraw = useWithdrawCheck();
+  // const canClaimReward = useClaimRewardCheck();
+  // const canWithdraw = useWithdrawCheck();
   const scalingFactor = useMemo(() => (cashStat ? Number(cashStat.priceInDollars).toFixed(4) : null), [cashStat]);
   const { to } = useTreasuryAllocationTimes();
 
@@ -70,44 +71,45 @@ const Masonry = () => {
           <Box mt={5}>
             <Grid container justify="center" spacing={3}>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
+                <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
                   <CardContent>
-                    <Typography style={{ textAlign: 'center' }}>Next Epoch</Typography>
+                    <h3 style={{ textAlign: 'center', color: '#FFAE00', fontSize:'18px'}}>Next Epoch</h3>
                     <ProgressCountdown base={moment().toDate()} hideBar={true} deadline={to} description="Next Epoch" />
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
+                <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography>Current Epoch</Typography>
-                    <Typography>{Number(currentEpoch)}</Typography>
+                    <h3 style={{ textAlign: 'center', color: '#FFAE00', fontSize:'18px'}}>Current Epoch</h3>
+                    <h2 style={{ fontWeight: 'lighter'}}>{Number(currentEpoch)}</h2>
+                    
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
+              <Grid item xs={12} md={2} lg={3} className={classes.gridItem}>
+                <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography>
-                      HERMES Price<small>(TWAP)</small>
-                    </Typography>
-                    <Typography>{scalingFactor}</Typography>
+                    <h3 style={{ textAlign: 'center', color: '#FFAE00', fontSize:'18px'}}>
+                      HERMES Price<small> (TWAP)</small>
+                    </h3>
+                    <h2 style={{ fontWeight: 'lighter'}}>{scalingFactor}</h2>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-                <Card className={classes.gridItem}>
+              <Grid item xs={12} md={2} lg={3} className={classes.gridItem}>
+                <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography>APR</Typography>
-                    <Typography>{masonryAPR.toFixed(2)}%</Typography>
+                    <h3 style={{ textAlign: 'center', color: '#FFAE00', fontSize:'18px'}}>APR</h3>
+                    <h2 style={{ fontWeight: 'lighter'}}>{masonryAPR.toFixed(2)}%</h2>
                   </CardContent>
                 </Card>
               </Grid>
               <Grid item xs={12} md={2} lg={2}>
-                <Card className={classes.gridItem}>
+                <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
                   <CardContent align="center">
-                    <Typography>HSHARES Staked</Typography>
-                    <Typography>{getDisplayBalance(totalStaked)}</Typography>
+                    <h3 style={{ textAlign: 'center', color: '#FFAE00', fontSize:'18px'}}>HSHARES Staked</h3>
+                    <h2 style={{ fontWeight: 'lighter'}}>{getDisplayBalance(totalStaked)}</h2>
                   </CardContent>
                 </Card>
               </Grid>
@@ -164,19 +166,6 @@ const Masonry = () => {
               </Card>
             </Grid>
           </Grid> */}
-          </Box>
-
-          <Box mt={5}>
-            <Grid container justify="center" spacing={3} mt={10}>
-              <Button
-                disabled={stakedBalance.eq(0) || (!canWithdraw && !canClaimReward)}
-                onClick={onRedeem}
-                color="primary"
-                variant="contained"
-              >
-                Claim and Withdraw
-              </Button>
-            </Grid>
           </Box>
         </>
       ) : (

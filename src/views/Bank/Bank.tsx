@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useWallet } from 'use-wallet';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Box, Button, Card, CardContent, Typography, Grid } from '@material-ui/core';
+import { Box, /*Button,*/ Card, CardContent,/*Typography,*/ Grid } from '@material-ui/core';
 
 import PageHeader from '../../components/PageHeader';
 import Spacer from '../../components/Spacer';
@@ -14,9 +14,9 @@ import Harvest from './components/Harvest';
 import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
-import useRedeem from '../../hooks/useRedeem';
-import { Bank as BankEntity } from '../../tomb-finance';
-import useTombFinance from '../../hooks/useTombFinance';
+// import useRedeem from '../../hooks/useRedeem';
+// import { Bank as BankEntity } from '../../tomb-finance';
+// import useTombFinance from '../../hooks/useTombFinance';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -34,7 +34,7 @@ const Bank: React.FC = () => {
   const bank = useBank(bankId);
 
   const { account } = useWallet();
-  const { onRedeem } = useRedeem(bank);
+ // const { onRedeem } = useRedeem(bank);
   const statsOnPool = useStatsForPool(bank);
   return account && bank ? (
     <>
@@ -45,33 +45,33 @@ const Bank: React.FC = () => {
       />
       <Box>
         <Grid container justify="center" spacing={3} style={{ marginBottom: '50px' }}>
-          <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
+          <Grid item xs={12} md={2} lg={3} className={classes.gridItem}>
+            <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
               <CardContent style={{ textAlign: 'center' }}>
-                <Typography>APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</Typography>
+                <h3 style={{ color: '#FFAE00'}}>APR</h3>
+                <h2 style={{ fontWeight: 'lighter'}}>{bank.closedForStaking ? '0.00' : statsOnPool?.yearlyAPR}%</h2>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
+          <Grid item xs={12} md={2} lg={3} className={classes.gridItem}>
+            <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
               <CardContent style={{ textAlign: 'center' }}>
-                <Typography>Daily APR</Typography>
-                <Typography>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</Typography>
+                <h3 style={{ color: '#FFAE00'}}>Daily APR</h3>
+                <h2 style={{ fontWeight: 'lighter'}}>{bank.closedForStaking ? '0.00' : statsOnPool?.dailyAPR}%</h2>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={2} lg={2} className={classes.gridItem}>
-            <Card className={classes.gridItem}>
+          <Grid item xs={12} md={2} lg={3} className={classes.gridItem}>
+            <Card style={{background: '#161414', borderRadius: '15px', height: '120px'}} className={classes.gridItem}>
               <CardContent style={{ textAlign: 'center' }}>
-                <Typography>TVL</Typography>
-                <Typography>${statsOnPool?.TVL}</Typography>
+                <h3 style={{ color: '#FFAE00'}}>Total Value Locked</h3>
+                <h2 style={{ fontWeight: 'lighter'}}>${statsOnPool?.TVL}</h2>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
       </Box>
-      <Box mt={5}>
+      <Box mt={12}>
         <StyledBank>
           <StyledCardsWrapper>
             <StyledCardWrapper>
@@ -80,14 +80,6 @@ const Bank: React.FC = () => {
             <Spacer />
             <StyledCardWrapper>{<Stake bank={bank} />}</StyledCardWrapper>
           </StyledCardsWrapper>
-          <Spacer size="lg" />
-          {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}
-          <Spacer size="lg" />
-          <div>
-            <Button onClick={onRedeem} color="primary" variant="contained">
-              Claim & Withdraw
-            </Button>
-          </div>
           <Spacer size="lg" />
         </StyledBank>
       </Box>
@@ -99,7 +91,7 @@ const Bank: React.FC = () => {
   );
 };
 
-const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
+/* const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const tombFinance = useTombFinance();
   const tombAddr = tombFinance.TOMB.address;
   const tshareAddr = tombFinance.TSHARE.address;
@@ -122,8 +114,7 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
       </CardContent>
     </Card>
   );
-};
-
+}; */
 const BankNotFound = () => {
   return (
     <Center>
@@ -141,11 +132,11 @@ const StyledBank = styled.div`
   }
 `;
 
-const StyledLink = styled.a`
+/* const StyledLink = styled.a`
   font-weight: 700;
   text-decoration: none;
   color: ${(props) => props.theme.color.primary.main};
-`;
+`; */
 
 const StyledCardsWrapper = styled.div`
   display: flex;

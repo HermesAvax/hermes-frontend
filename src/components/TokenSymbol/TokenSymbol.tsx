@@ -1,14 +1,14 @@
 import React from 'react';
 
 //Graveyard ecosystem logos
-import tombLogo from '../../assets/img/logo_hermes.png';
-import tShareLogo from '../../assets/img/logo_hshare.png';
+import tombLogo from '../../assets/img/logo_hermes5.png';
+import tShareLogo from '../../assets/img/logo_hshare3.png';
 import tombLogoPNG from '../../assets/img/logo_hermes.png';
 import tShareLogoPNG from '../../assets/img/logo_hshare.png';
-import tBondLogo from '../../assets/img/logo_hbond.png';
+import tBondLogo from '../../assets/img/logo_hbond2.png';
 
-import tombFtmLpLogo from '../../assets/img/hermes_avax.png';
-import tshareFtmLpLogo from '../../assets/img/hshare_avax.png';
+import tombFtmLpLogo from '../../assets/img/hermes_avax2.png';
+import tshareFtmLpLogo from '../../assets/img/hshare_avax2.png';
 
 import wftmLogo from '../../assets/img/avax.png';
 import booLogo from '../../assets/img/spooky.png';
@@ -36,7 +36,7 @@ type LogoProps = {
   size?: number;
 };
 
-const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 64 }) => {
+const TokenSymbol: React.FC<LogoProps> = ({ symbol, size = 90 }) => {
   if (!logosBySymbol[symbol]) {
     throw new Error(`Invalid Token Logo symbol: ${symbol}`);
   }

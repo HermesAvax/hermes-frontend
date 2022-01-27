@@ -1,8 +1,32 @@
 body,
 html,
-h1,
-h2,
-h3,
+h1 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h2 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h3 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 h4 {
   margin: 0;
   font-family: 'Poppins', sans-serif !important;
@@ -24,7 +48,7 @@ body {
 .MuiTypography-body1,
 .MuiPaper-root,
 .MuiPaper-root h2 {
-  color: #2c2560 !important;
+  color: #ffffff !important;
 }
 
 body {
@@ -39,10 +63,42 @@ body {
   background-size: cover !important;
 }
 
-h1,
-h2,
-h3,
-h4,
+h1 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h2 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h3 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h4 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 h5,
 h6 {
   font-family: 'Kanit', !important;
@@ -53,23 +109,23 @@ footer .a:hover {
 }
 
 .MuiToolbar-regular {
-  color: #e0e3bd;
+  color: #1b1b1b;
 }
 
 .MuiButton-containedPrimary,
 .MuiButton-containedPrimary:hover,
 .MuiListItem-button:hover,
 .MuiButtonBase-root:hover {
-  color: #fff !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', 'Poppins', 'Kanit', 'Roboto';
 }
 
 .wallet-button {
   color: #2c2560 !important;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Roboto', sans-serif !important;
   font-size: 1.1rem !important;
   text-align: left !important;
   justify-content: flex-start !important;

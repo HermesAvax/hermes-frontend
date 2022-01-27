@@ -28,11 +28,11 @@ const AccountButton: React.FC<AccountButtonProps> = ({ text }) => {
   return (
     <div>
       {!account ? (
-        <Button onClick={handleWalletProviderOpen} color="primary" variant="contained">
+        <Button onClick={handleWalletProviderOpen} color="primary" variant="contained" style={{ width: '120px', borderRadius: '14px' }}>
           {buttonText}
         </Button>
       ) : (
-        <Button variant="contained" onClick={onPresentAccountModal}>
+        <Button variant="contained"  color="primary" style={{ borderRadius: '10px' }} onClick={onPresentAccountModal}>
           My Wallet
         </Button>
       )}

@@ -17275,6 +17275,11 @@ react-circular-progressbar@^2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-circular-progressbar/-/react-circular-progressbar-2.0.4.tgz#5b04a9cf6be8c522c180e4e99ec6db63677335b0"
 
+react-countdown-circle-timer@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/react-countdown-circle-timer/-/react-countdown-circle-timer-3.0.6.tgz#c604fedd78aad1c6e7a85f4d3344d2b40800f7d9"
+  integrity sha512-igp0md0dCvSxos2IoHa7jUrsLuF+VFQ/hEAM8stv+rrK+gwYkFurZxLaKDTrojiyGz6mhh7N85P4pS1EaM8afw==
+
 react-countdown@^2.2.1:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/react-countdown/-/react-countdown-2.3.2.tgz#4cc27f28f2dcd47237ee66e4b9f6d2a21fc0b0ad"
