@@ -236,7 +236,7 @@ const Home = () => {
               <h1 style={{ color: '#FFAE00'}}>Welcome to</h1>
               <h1>Hermes Finance</h1>
               <h3 style={{ color: '#FFAE00', marginTop:'7%'}}> Audited by 0xGuard and KYC with Rugdoc</h3>
-              <Button color='primary' style={{ width : '30%', left :'80%'}} disabled={false} onClick={onPresentModal} variant="contained">
+              <Button color='primary' style={{ width : '30%', left :'76%'}} disabled={false} onClick={onPresentModal} variant="contained">
                   Read More
               </Button>
             </Box>

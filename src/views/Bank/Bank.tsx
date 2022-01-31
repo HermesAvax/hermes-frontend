@@ -15,8 +15,8 @@ import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
 import useStatsForPool from '../../hooks/useStatsForPool';
 // import useRedeem from '../../hooks/useRedeem';
-// import { Bank as BankEntity } from '../../tomb-finance';
-// import useTombFinance from '../../hooks/useTombFinance';
+ import { Bank as BankEntity } from '../../tomb-finance';
+ import useTombFinance from '../../hooks/useTombFinance';
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
@@ -81,6 +81,8 @@ const Bank: React.FC = () => {
             <StyledCardWrapper>{<Stake bank={bank} />}</StyledCardWrapper>
           </StyledCardsWrapper>
           <Spacer size="lg" />
+          {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}
+          <Spacer size="lg" />
         </StyledBank>
       </Box>
     </>
@@ -91,7 +93,7 @@ const Bank: React.FC = () => {
   );
 };
 
-/* const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
+  const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   const tombFinance = useTombFinance();
   const tombAddr = tombFinance.TOMB.address;
   const tshareAddr = tombFinance.TSHARE.address;
@@ -106,7 +108,7 @@ const Bank: React.FC = () => {
     uniswapUrl = 'https://app.pangolin.exchange/#/add/AVAX/' + tshareAddr;
   }
   return (
-    <Card>
+    <Card style={{ background: '#161414', borderRadius: '10px'}}>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
           {`Provide liquidity for ${pairName} now on Pangolin Exchange`}
@@ -114,7 +116,7 @@ const Bank: React.FC = () => {
       </CardContent>
     </Card>
   );
-}; */
+}; 
 const BankNotFound = () => {
   return (
     <Center>
@@ -132,11 +134,11 @@ const StyledBank = styled.div`
   }
 `;
 
-/* const StyledLink = styled.a`
-  font-weight: 700;
+const StyledLink = styled.a`
+  font-weight: 500;
   text-decoration: none;
-  color: ${(props) => props.theme.color.primary.main};
-`; */
+  color: #FFAE00;
+`; 
 
 const StyledCardsWrapper = styled.div`
   display: flex;
