@@ -100,9 +100,12 @@ const Bank: React.FC = () => {
 
   let pairName: string;
   let uniswapUrl: string;
-  if (bank.depositTokenName.includes('HERMES')) {
+  if (bank.depositTokenName.includes('HERMES-BNB')) {
     pairName = 'HERMES-AVAX pair';
     uniswapUrl = 'https://app.pangolin.exchange/#/add/AVAX/' + tombAddr;
+  } else if (bank.depositTokenName.includes('HERMES-HSHARE')) {
+    pairName = 'HERMES-HSHARE pair';
+    uniswapUrl = 'https://app.pangolin.exchange/#/add/' + tombAddr + '/' + tshareAddr;
   } else {
     pairName = 'HSHARE-AVAX pair';
     uniswapUrl = 'https://app.pangolin.exchange/#/add/AVAX/' + tshareAddr;
