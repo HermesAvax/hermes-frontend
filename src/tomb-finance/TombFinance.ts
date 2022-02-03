@@ -144,6 +144,35 @@ export class TombFinance {
       totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
     };
   }
+   /**
+   * Calculates various stats for the requested LP
+   * @param name of the LP token to load stats for
+   * @returns
+   */
+
+    async getLPStat2(name: string): Promise<LPStat> {
+      const lpToken = this.externalTokens[name];
+      const lpTokenSupplyBN = await lpToken.totalSupply();
+      const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
+      const token0 = this.TOMB;
+      const tokenAmountBN = await token0.balanceOf(lpToken.address);
+      const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
+  
+      const ftmAmountBN = await this.TSHARE.balanceOf(lpToken.address);
+      const ftmAmount = getDisplayBalance(ftmAmountBN, 18);
+      const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
+      const ftmAmountInOneLP = Number(ftmAmount) / Number(lpTokenSupply);
+      const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, false);
+      const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
+      const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
+      return {
+        tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
+        ftmAmount: ftmAmountInOneLP.toFixed(2).toString(),
+        priceOfOne: lpTokenPriceFixed,
+        totalLiquidity: liquidity,
+        totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
+      };
+    }
 
   /**
    * Use this method to get price for Tomb
@@ -291,8 +320,10 @@ export class TombFinance {
       return await poolContract.epocHermesPerSecond(0);
     }
     const rewardPerSecond = await poolContract.tSharePerSecond();
-    if (depositTokenName.startsWith('HERMES')) {
+    if (depositTokenName.startsWith('HERMES-AVAX')) {
       return rewardPerSecond.mul(35500).div(59500);
+    } else if (depositTokenName.startsWith('HERMES-HSHARE')) {
+      return rewardPerSecond.mul(16500).div(55000);
     } else {
       return rewardPerSecond.mul(24000).div(59500);
     }
@@ -316,8 +347,8 @@ export class TombFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.TOMB, true);
       } else if (tokenName === 'HSHARE-AVAX-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
-      } else if (tokenName === 'SHIBA') {
-        tokenPrice = await this.getTokenPriceFromSpiritswap(token);
+      } else if (tokenName === 'HERMES-HSHARE-LP') {
+        tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
       } else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
         tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();

@@ -9,6 +9,7 @@ import tBondLogo from '../../assets/img/logo_hbond2.png';
 
 import tombFtmLpLogo from '../../assets/img/hermes_avax2.png';
 import tshareFtmLpLogo from '../../assets/img/hshare_avax2.png';
+import hermeshshareLpLogo from '../../assets/img/hermes_hshare.png';
 
 import wftmLogo from '../../assets/img/avax.png';
 import booLogo from '../../assets/img/spooky.png';
@@ -29,6 +30,7 @@ const logosBySymbol: { [title: string]: string } = {
   ZOO: zooLogo,
   'HERMES-AVAX-LP': tombFtmLpLogo,
   'HSHARE-AVAX-LP': tshareFtmLpLogo,
+  'HERMES-HSHARE-LP': hermeshshareLpLogo,
 };
 
 type LogoProps = {
