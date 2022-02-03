@@ -323,7 +323,7 @@ export class TombFinance {
     if (depositTokenName.startsWith('HERMES-AVAX')) {
       return rewardPerSecond.mul(35500).div(59500);
     } else if (depositTokenName.startsWith('HERMES-HSHARE')) {
-      return rewardPerSecond.mul(16500).div(55000);
+      return rewardPerSecond;
     } else {
       return rewardPerSecond.mul(24000).div(59500);
     }
