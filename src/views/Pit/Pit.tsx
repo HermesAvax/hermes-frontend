@@ -115,7 +115,7 @@ const Pit: React.FC = () => {
                   toTokenName="HERMES"
                   priceDesc={`${getDisplayBalance(bondBalance)} HBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
-                  disabled={!bondStat /*|| bondBalance.eq(0)*/ || !isBondRedeemable}
+                  disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
                   disabledDescription={!isBondRedeemable ? `Enabled when HERMES > ${BOND_REDEEM_PRICE} AVAX` : null}
                 />
               </StyledCardWrapper>
