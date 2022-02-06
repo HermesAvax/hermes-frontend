@@ -392,6 +392,14 @@ export class TombFinance {
     return await Treasury.redeemBonds(decimalToBalance(amount), priceForTomb);
   }
 
+  /**
+   * update bonds prices for cash.
+   */
+     async updateOracle(): Promise<TransactionResponse> {
+      const { SeigniorageOracle } = this.contracts;
+      return await SeigniorageOracle.update();
+    }
+
   async getTotalValueLocked(): Promise<Number> {
     let totalValue = 0;
     for (const bankInfo of Object.values(bankDefinitions)) {

@@ -18,6 +18,8 @@ import useTokenBalance from '../../hooks/useTokenBalance';
 import useBondsPurchasable from '../../hooks/useBondsPurchasable';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import { BOND_REDEEM_PRICE, BOND_REDEEM_PRICE_BN } from '../../tomb-finance/constants';
+import { Button } from '@material-ui/core';
+
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -43,6 +45,14 @@ const Pit: React.FC = () => {
       addTransaction(tx, {
         summary: `Buy ${Number(amount).toFixed(2)} HBOND with ${amount} HERMES`,
       });
+    },
+    [tombFinance, addTransaction],
+  );
+  
+  const handleUpdateOracle = useCallback(
+    async () => {
+      const tx = await tombFinance.updateOracle();
+      addTransaction(tx, { summary: `Oracle Updated` });
     },
     [tombFinance, addTransaction],
   );
@@ -105,11 +115,14 @@ const Pit: React.FC = () => {
                   toTokenName="HERMES"
                   priceDesc={`${getDisplayBalance(bondBalance)} HBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
-                  disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
+                  disabled={!bondStat /*|| bondBalance.eq(0)*/ || !isBondRedeemable}
                   disabledDescription={!isBondRedeemable ? `Enabled when HERMES > ${BOND_REDEEM_PRICE} AVAX` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>
+            <Button style={{marginLeft : '44%', marginTop: '3%'}} color="primary" variant="contained" onClick={handleUpdateOracle}>
+                {"Update Oracle"}
+            </Button>
           </>
         ) : (
           <UnlockWallet />
