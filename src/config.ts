@@ -13,6 +13,7 @@ const configurations: { [env: string]: Configuration } = {
     externalTokens: {
       WFTM: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       FUSDT: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6], // This is actually usdc on mainnet not fusdt
+      WINE: ['0xC55036B5348CfB45a932481744645985010d3A44', 18],
       BOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       ZOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 0],
       SHIBA: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 9],
@@ -20,12 +21,14 @@ const configurations: { [env: string]: Configuration } = {
       'HERMES-AVAX-LP': ['0xC58cC1a0f29f1993D089681e4fA03c7f65dF1325', 18],
       'HSHARE-AVAX-LP': ['0xC132ff3813De33356C859979501fB212673e395e', 18],
       'HERMES-HSHARE-LP': ['0x1F13e2889cD0C356abb968A2641DebCEad08cA8E', 18],
+      'HSHARE-WINE-LP': ['0x1F13e2889cD0C356abb968A2641DebCEad08cA8E', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
     masonryLaunchesAt: new Date('2020-12-11T00:00:00Z'),
     refreshInterval: 10000,
   },
+  
   production: {
     chainId: ChainId.AVALANCHE,
     networkName: 'Avalanche C Chain',
@@ -35,6 +38,7 @@ const configurations: { [env: string]: Configuration } = {
     externalTokens: {
       WFTM: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       FUSDT: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6], // This is actually usdc on mainnet not fusdt
+      WINE: ['0xC55036B5348CfB45a932481744645985010d3A44', 18],
       BOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       ZOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 0],
       SHIBA: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 9],
@@ -42,6 +46,7 @@ const configurations: { [env: string]: Configuration } = {
       'HERMES-AVAX-LP': ['0xC58cC1a0f29f1993D089681e4fA03c7f65dF1325', 18],
       'HSHARE-AVAX-LP': ['0xC132ff3813De33356C859979501fB212673e395e', 18],
       'HERMES-HSHARE-LP': ['0x1F13e2889cD0C356abb968A2641DebCEad08cA8E', 18],
+      'HSHARE-WINE-LP': ['0x1F13e2889cD0C356abb968A2641DebCEad08cA8E', 18],
     },
     baseLaunchDate: new Date('2021-06-02 13:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -87,16 +92,38 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     sort: 7,
     closedForStaking: false,
   },
-  HermesHShareLPHShareRewardPool: {
+  HermesHshareLPHShareRewardPool: {
     name: 'Earn HSHARE by HERMES-HSHARE LP',
-    poolId: 0,
+    poolId: 2,
     sectionInUI: 2,
-    contract: 'HermesHShareLPHShareRewardPool',
+    contract: 'HermesHshareLPHShareRewardPool',
     depositTokenName: 'HERMES-HSHARE-LP',
     earnTokenName: 'HSHARE',
     finished: false,
     sort: 8,
     closedForStaking: false,
+  },
+  HermesHShareLPHShareRewardPool: {
+    name: 'Earn HSHARE by HERMES-HSHARE LP',
+    poolId: 0,
+    sectionInUI: 1,
+    contract: 'HermesHShareLPHShareRewardPool',
+    depositTokenName: 'HERMES-HSHARE-LP',
+    earnTokenName: 'HSHARE',
+    finished: false,
+    sort: 8,
+    closedForStaking: true,
+  },
+  PartnerRewardPool: {
+    name: 'Earn HSHARE & WINE by HSHARE-WINE LP',
+    poolId: 0,
+    sectionInUI: 2,
+    contract: 'PartnerRewardPool',
+    depositTokenName: 'HSHARE-WINE-LP',
+    earnTokenName: 'HSHARE',
+    finished: false,
+    sort: 8,
+    closedForStaking: true,
   },
 };
 

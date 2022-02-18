@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import Page from '../../components/Page';
 import { createGlobalStyle } from 'styled-components';
-import HomeImage from '../../assets/img/home.png';
+import HomeImage from '../../assets/img/none.png';
 import useLpStats from '../../hooks/useLpStats';
 import { Box, Button, Grid, Paper, Typography } from '@material-ui/core';
 import useTombStats from '../../hooks/useTombStats';
@@ -80,14 +80,14 @@ const ProvideLiquidity = () => {
   return (
     <Page>
       <BackgroundImage />
-      <Typography color="textPrimary" align="center" variant="h3" gutterBottom>
+      <Typography color="primary" align="center" variant="h3" gutterBottom>
         Provide Liquidity
       </Typography>
 
       <Grid container justify="center">
         <Box style={{ width: '600px' }}>
           <Alert variant="filled" severity="warning" style={{ marginBottom: '10px' }}>
-            <b>This and <a href="https://traderjoexyz.com/#/home"  rel="noopener noreferrer" target="_blank">Trader Joe</a> are the only ways to provide Liquidity on HERMES-AVAX pair without paying tax.</b>
+            <b>This and <a href="https://app.pangolin.exchange/#/swap"  rel="noopener noreferrer" target="_blank">Pangolin Exchange</a> are the only ways to provide Liquidity on HERMES-AVAX pair without paying tax.</b>
           </Alert>
           <Grid item xs={12} sm={12}>
             <Paper>
@@ -124,7 +124,7 @@ const ProvideLiquidity = () => {
                             variant="contained"
                             onClick={() => onProvideTombFtmLP(ftmAmount.toString(), tombAmount.toString())}
                             color="primary"
-                            style={{ margin: '0 10px', color: '#fff' }}
+                            style={{ margin: '0 10px', color: '#fff', borderRadius:'10px' }}
                           >
                             Supply
                           </Button>
@@ -132,8 +132,8 @@ const ProvideLiquidity = () => {
                           <Button
                             variant="contained"
                             onClick={() => approveTaxOffice()}
-                            color="secondary"
-                            style={{ margin: '0 10px' }}
+                            color="primary"
+                            style={{ margin: '0 10px', borderRadius:'10px' }}
                           >
                             Approve
                           </Button>

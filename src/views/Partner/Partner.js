@@ -1,17 +1,18 @@
 import React from 'react';
 import { useWallet } from 'use-wallet';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import Bank from '../Bank';
+import Bank2 from '../Bank2';
+
 import { Box, Container, Typography, Grid } from '@material-ui/core';
 
 
 import UnlockWallet from '../../components/UnlockWallet';
 import Page from '../../components/Page';
-import CemeteryCard from './CemeteryCard';
 import CemeteryImage from '../../assets/img/none.png';
 import { createGlobalStyle } from 'styled-components';
 
 import useBanks from '../../hooks/useBanks';
+import PartnerCard from './PartnerCard';
 
 const BackgroundImage = createGlobalStyle`
   body {
@@ -43,7 +44,7 @@ const Cemetery = () => {
                     Earn HSHARE by staking LP
                   </Typography>
                   <Grid container spacing={3}>
-                    <CemeteryCard />
+                    <PartnerCard />
                   </Grid>
                 </div>
 {/* 
@@ -87,7 +88,7 @@ const Cemetery = () => {
         </Route>
         <Route path={`${path}/:bankId`}>
           <BackgroundImage />
-          <Bank />
+          <Bank2 />
         </Route>
       </Page>
     </Switch>

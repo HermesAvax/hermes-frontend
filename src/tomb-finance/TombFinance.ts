@@ -32,6 +32,7 @@ export class TombFinance {
   TSHARE: ERC20;
   TBOND: ERC20;
   FTM: ERC20;
+  WINE: ERC20;
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -49,6 +50,7 @@ export class TombFinance {
     this.TOMB = new ERC20(deployments.tomb.address, provider, 'HERMES');
     this.TSHARE = new ERC20(deployments.tShare.address, provider, 'HSHARE');
     this.TBOND = new ERC20(deployments.tBond.address, provider, 'HBOND');
+    this.WINE = new ERC20(deployments.wine.address, provider, 'WINE');
     this.FTM = this.externalTokens['WFTM'];
 
     // Uniswap V2 Pair
@@ -174,6 +176,36 @@ export class TombFinance {
       };
     }
 
+   /**
+   * Calculates various stats for the requested LP
+   * @param name of the LP token to load stats for
+   * @returns
+   */
+
+    async getLPStat3(name: string): Promise<LPStat> {
+      const lpToken = this.externalTokens[name];
+      const lpTokenSupplyBN = await lpToken.totalSupply();
+      const lpTokenSupply = getDisplayBalance(lpTokenSupplyBN, 18);
+      const token0 = this.TSHARE;
+      const tokenAmountBN = await token0.balanceOf(lpToken.address);
+      const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
+  
+      const ftmAmountBN = await this.WINE.balanceOf(lpToken.address);
+      const ftmAmount = getDisplayBalance(ftmAmountBN, 18);
+      const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
+      const ftmAmountInOneLP = Number(ftmAmount) / Number(lpTokenSupply);
+      const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, false);
+      const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
+      const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
+      return {
+        tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
+        ftmAmount: ftmAmountInOneLP.toFixed(2).toString(),
+        priceOfOne: lpTokenPriceFixed,
+        totalLiquidity: liquidity,
+        totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
+      };
+    }
+
   /**
    * Use this method to get price for Tomb
    * @returns TokenStat for TBOND
@@ -284,6 +316,36 @@ export class TombFinance {
     };
   }
 
+    /**
+   * Calculates the TVL, APR and daily APR of a provided pool/bank
+   * @param bank
+   * @returns
+   */
+     async getPoolAPRsWine(): Promise<PoolStats> {
+      if (this.myAccount === undefined) return;
+      const depositToken = this.WINE;
+      const poolContract = this.contracts.PartnerRewardPool;
+      const depositTokenPrice = await this.getDepositTokenPriceInDollars("HSHARE-WINE-LP", depositToken);
+      const stakeInPool = await depositToken.balanceOf(poolContract.address);
+      const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+      const stat = await this.getShareStat();
+      const tokenPerSecond = poolContract.token2PerSecond();
+  
+      const tokenPerHour = tokenPerSecond.mul(60).mul(60);
+      const totalRewardPricePerYear =
+        Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
+      const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
+      const totalStakingTokenInPool =
+        Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+      const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
+      const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
+      return {
+        dailyAPR: dailyAPR.toFixed(2).toString(),
+        yearlyAPR: yearlyAPR.toFixed(2).toString(),
+        TVL: TVL.toFixed(2).toString(),
+      };
+    }
+
   /**
    * Method to return the amount of tokens the pool yields per second
    * @param earnTokenName the name of the token that the pool is earning
@@ -319,13 +381,17 @@ export class TombFinance {
       }
       return await poolContract.epocHermesPerSecond(0);
     }
+    if (contractName.endsWith('PartnerRewardPool')) {
+      const rewardPerSecond = await poolContract.token1PerSecond();
+      return rewardPerSecond;
+    }
     const rewardPerSecond = await poolContract.tSharePerSecond();
     if (depositTokenName.startsWith('HERMES-AVAX')) {
       return rewardPerSecond.mul(35500).div(59500);
     } else if (depositTokenName.startsWith('HERMES-HSHARE')) {
-      return rewardPerSecond;
+      return rewardPerSecond.mul(16500).div(59500);
     } else {
-      return rewardPerSecond.mul(24000).div(59500);
+      return rewardPerSecond.mul(16500).div(59500);
     }
   }
 
@@ -395,10 +461,10 @@ export class TombFinance {
   /**
    * update bonds prices for cash.
    */
-     async updateOracle(): Promise<TransactionResponse> {
-      const { SeigniorageOracle } = this.contracts;
-      return await SeigniorageOracle.update();
-    }
+  async updateOracle(): Promise<TransactionResponse> {
+    const { SeigniorageOracle } = this.contracts;
+    return await SeigniorageOracle.update();
+  }
 
   async getTotalValueLocked(): Promise<Number> {
     let totalValue = 0;
@@ -449,6 +515,10 @@ export class TombFinance {
     try {
       if (earnTokenName === 'HERMES') {
         return await pool.pendingHermes(poolId, account);
+      } else if (earnTokenName === 'WINE') {
+        return await pool.pendingToken2(poolId, account);
+      } else if (poolName === 'PartnerRewardPool') {
+        return await pool.pendingToken1(poolId, account); 
       } else {
         return await pool.pendingShare(poolId, account);
       }

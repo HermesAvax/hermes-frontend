@@ -10,11 +10,14 @@ import tBondLogo from '../../assets/img/logo_hbond2.png';
 import tombFtmLpLogo from '../../assets/img/hermes_avax2.png';
 import tshareFtmLpLogo from '../../assets/img/hshare_avax2.png';
 import hermeshshareLpLogo from '../../assets/img/hermes_hshare.png';
+import hsharewineLpLogo from '../../assets/img/hshare_wine.png';
 
 import wftmLogo from '../../assets/img/avax.png';
 import booLogo from '../../assets/img/spooky.png';
 import zooLogo from '../../assets/img/zoo_logo.svg';
 import shibaLogo from '../../assets/img/shiba_logo.svg';
+import wineLogo from '../../assets/img/wine_logo.png';
+
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
@@ -28,9 +31,11 @@ const logosBySymbol: { [title: string]: string } = {
   BOO: booLogo,
   SHIBA: shibaLogo,
   ZOO: zooLogo,
+  WINE: wineLogo,
   'HERMES-AVAX-LP': tombFtmLpLogo,
   'HSHARE-AVAX-LP': tshareFtmLpLogo,
   'HERMES-HSHARE-LP': hermeshshareLpLogo,
+  'HSHARE-WINE-LP': hsharewineLpLogo,
 };
 
 type LogoProps = {

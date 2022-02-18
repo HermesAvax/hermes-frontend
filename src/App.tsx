@@ -21,6 +21,7 @@ const Home = lazy(() => import('./views/Home'));
 const Cemetery = lazy(() => import('./views/Cemetery'));
 const Masonry = lazy(() => import('./views/Masonry'));
 const Pit = lazy(() => import('./views/Pit'));
+// const Partner = lazy(() => import('./views/Partner'));
 // const SBS = lazy(() => import('./views/Sbs'));
 // const Liquidity = lazy(() => import('./views/Liquidity'));
 
@@ -62,7 +63,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/regulations">
               <Regulations />
-            </Route>
+            </Route> 
             <Route path="/liquidity">
               <Liquidity />
             </Route> */}
