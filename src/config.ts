@@ -123,7 +123,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'HSHARE',
     finished: false,
     sort: 8,
-    closedForStaking: true,
+    closedForStaking: false,
   },
 };
 

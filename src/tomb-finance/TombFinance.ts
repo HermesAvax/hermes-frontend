@@ -415,7 +415,9 @@ export class TombFinance {
         tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
       } else if (tokenName === 'HERMES-HSHARE-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
-      } else {
+      } else if (tokenName === 'HSHARE-WINE-LP') {
+        tokenPrice = await this.getLPTokenPrice(token, this.TSHARE, false);
+      }else {
         tokenPrice = await this.getTokenPriceFromPancakeswap(token);
         tokenPrice = (Number(tokenPrice) * Number(priceOfOneFtmInDollars)).toString();
       }
