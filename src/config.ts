@@ -39,6 +39,7 @@ const configurations: { [env: string]: Configuration } = {
       WFTM: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       FUSDT: ['0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664', 6], // This is actually usdc on mainnet not fusdt
       WINE: ['0xC55036B5348CfB45a932481744645985010d3A44', 18],
+      MIM: ['0x130966628846BFd36ff31a822705796e8cb8C18D', 18],
       BOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 18],
       ZOO: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 0],
       SHIBA: ['0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7', 9],

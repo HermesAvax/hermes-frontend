@@ -26,6 +26,16 @@ export type PoolStats = {
   TVL: string;
 };
 
+export type PoolStatsWine  = {
+  dailyAPR: string;
+  yearlyAPR: string;
+  TVL: string;
+  dailyAPRWine: string;
+  yearlyAPRWine: string;
+  totalAPRDaily: string;
+  totalAPRYearly: string;
+}
+
 export type TokenStat = {
   tokenInFtm: string;
   priceInDollars: string;

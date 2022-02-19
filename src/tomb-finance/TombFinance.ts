@@ -1,8 +1,8 @@
 // import { Fetcher, Route, Token } from '@uniswap/sdk';
-import { Fetcher as FetcherSpirit, Token as TokenSpirit } from '@pangolindex/sdk';
+import { Fetcher as FetcherSpirit, Token as TokenSpirit, Route as RouteSpirit } from '@traderjoe-xyz/sdk';
 import { Fetcher, Route, Token } from '@pangolindex/sdk';
 import { Configuration } from './config';
-import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, TShareSwapperStat } from './types';
+import { ContractName, TokenStat, AllocationTime, LPStat, Bank, PoolStats, TShareSwapperStat, PoolStatsWine } from './types';
 import { BigNumber, Contract, ethers, EventFilter } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
@@ -33,6 +33,7 @@ export class TombFinance {
   TBOND: ERC20;
   FTM: ERC20;
   WINE: ERC20;
+  MIM: ERC20;
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -51,6 +52,7 @@ export class TombFinance {
     this.TSHARE = new ERC20(deployments.tShare.address, provider, 'HSHARE');
     this.TBOND = new ERC20(deployments.tBond.address, provider, 'HBOND');
     this.WINE = new ERC20(deployments.wine.address, provider, 'WINE');
+    this.MIM = new ERC20(deployments.wine.address, provider, 'MIM');
     this.FTM = this.externalTokens['WFTM'];
 
     // Uniswap V2 Pair
@@ -106,6 +108,28 @@ export class TombFinance {
       .sub(tombRewardPoolSupply2)
       .sub(tombRewardPoolSupplyOld);
     const priceInFTM = await this.getTokenPriceFromPancakeswap(this.TOMB);
+    const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
+    const priceOfTombInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
+
+    return {
+      tokenInFtm: priceInFTM,
+      priceInDollars: priceOfTombInDollars,
+      totalSupply: getDisplayBalance(supply, this.TOMB.decimal, 0),
+      circulatingSupply: getDisplayBalance(tombCirculatingSupply, this.TOMB.decimal, 0),
+    };
+  }
+
+  async getWineStat(): Promise<TokenStat> {
+    const { TombFtmRewardPool, TombFtmLpTombRewardPool, TombFtmLpTombRewardPoolOld } = this.contracts;
+    const supply = await this.WINE.totalSupply();
+    const tombRewardPoolSupply = await this.WINE.balanceOf(TombFtmRewardPool.address);
+    const tombRewardPoolSupply2 = await this.WINE.balanceOf(TombFtmLpTombRewardPool.address);
+    const tombRewardPoolSupplyOld = await this.WINE.balanceOf(TombFtmLpTombRewardPoolOld.address);
+    const tombCirculatingSupply = supply
+      .sub(tombRewardPoolSupply)
+      .sub(tombRewardPoolSupply2)
+      .sub(tombRewardPoolSupplyOld);
+    const priceInFTM = await this.getTokenPriceFromSpiritswap(this.WINE);
     const priceOfOneFTM = await this.getWFTMPriceFromPancakeswap();
     const priceOfTombInDollars = (Number(priceInFTM) * Number(priceOfOneFTM)).toFixed(2);
 
@@ -321,7 +345,7 @@ export class TombFinance {
    * @param bank
    * @returns
    */
-     async getPoolAPRsWine(bank: Bank): Promise<PoolStats> {
+     async getPoolAPRsWine(bank: Bank): Promise<PoolStatsWine> {
       if (this.myAccount === undefined) return;
     const depositToken = bank.depositToken;
     const poolContract = this.contracts[bank.contract];
@@ -329,26 +353,45 @@ export class TombFinance {
     const stakeInPool = await depositToken.balanceOf(bank.address);
     const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
     const stat = bank.earnTokenName === 'HERMES' ? await this.getTombStat() : await this.getShareStat();
+    const statWine = await this.getWineStat();
     const tokenPerSecond = await this.getTokenPerSecond(
       bank.earnTokenName,
       bank.contract,
       poolContract,
       bank.depositTokenName,
     );
-
+    const token2PerSecond = await this.getTokenPerSecondWine(poolContract);
+  
     const tokenPerHour = tokenPerSecond.mul(60).mul(60);
+    const tokenPerHour2 = token2PerSecond.mul(60).mul(60); 
     const totalRewardPricePerYear =
       Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
+    const totalRewardPricePerYear2 =
+      Number(statWine.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24).mul(365)));
     const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
+    const totalRewardPricePerDay2 = Number(statWine.priceInDollars) * Number(getDisplayBalance(tokenPerHour2.mul(24)));
     const totalStakingTokenInPool =
       Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-    const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100 * 2;
-    const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100 * 2;
+    const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
+    const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
+    const dailyAPRWine = (totalRewardPricePerDay2 / totalStakingTokenInPool) * 100;
+    const yearlyAPRWine = (totalRewardPricePerYear2 / totalStakingTokenInPool) * 100;
+    const totalAPRDaily = dailyAPRWine+dailyAPR;
+    const totalAPRYearly = yearlyAPRWine+yearlyAPR;
     return {
       dailyAPR: dailyAPR.toFixed(2).toString(),
       yearlyAPR: yearlyAPR.toFixed(2).toString(),
       TVL: TVL.toFixed(2).toString(),
+      dailyAPRWine: dailyAPRWine.toFixed(2).toString(),
+      yearlyAPRWine: yearlyAPRWine.toFixed(2).toString(),
+      totalAPRYearly: totalAPRYearly.toFixed(2).toString(),
+      totalAPRDaily: totalAPRDaily.toFixed(2).toString(),
     };
+    }
+
+    async getTokenPerSecondWine(poolContract: Contract) {
+      const rewardPerSecond = await poolContract.token2PerSecond();
+      return rewardPerSecond;
     }
 
   /**
@@ -624,21 +667,16 @@ export class TombFinance {
     const ready = await this.provider.ready;
     if (!ready) return;
     // const { chainId } = this.config;
+    const { WFTM } = this.config.externalTokens;
 
-    const { WFTM } = this.externalTokens;
-
-    const wftm = new TokenSpirit(43114, WFTM.address, WFTM.decimal);
+    const wftm = new TokenSpirit(43114, WFTM[0], WFTM[1]);
     const token = new TokenSpirit(43114, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
       const wftmToToken = await FetcherSpirit.fetchPairData(wftm, token, this.provider);
-      const liquidityToken = wftmToToken.liquidityToken;
-      let ftmBalanceInLP = await WFTM.balanceOf(liquidityToken.address);
-      let ftmAmount = Number(getFullDisplayBalance(ftmBalanceInLP, WFTM.decimal));
-      let shibaBalanceInLP = await tokenContract.balanceOf(liquidityToken.address);
-      let shibaAmount = Number(getFullDisplayBalance(shibaBalanceInLP, tokenContract.decimal));
-      const priceOfOneFtmInDollars = await this.getWFTMPriceFromPancakeswap();
-      let priceOfShiba = (ftmAmount / shibaAmount) * Number(priceOfOneFtmInDollars);
-      return priceOfShiba.toString();
+      const priceInBUSD = new RouteSpirit([wftmToToken], token);
+      
+      return priceInBUSD.midPrice.toFixed(4);
+
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
