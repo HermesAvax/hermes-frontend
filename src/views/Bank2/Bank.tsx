@@ -18,7 +18,7 @@ import useStatsForPool from '../../hooks/useStatsForPool';
 // import useRedeem from '../../hooks/useRedeem';
  import { Bank as BankEntity } from '../../tomb-finance';
  import useTombFinance from '../../hooks/useTombFinance';
- 
+
 const useStyles = makeStyles((theme) => ({
   gridItem: {
     height: '100%',
@@ -121,9 +121,17 @@ const Bank: React.FC = () => {
   return (
     <Card style={{ background: '#161414', borderRadius: '10px'}}>
       <CardContent>
+        <StyledCardWrapper>
         <StyledLink href={uniswapUrl} target="_blank">
           {`Provide liquidity for ${pairName} now on Pangolin Exchange`}
         </StyledLink>
+        <StyledLink style={{color: '#FFFFFF'}} href="https://app.pangolin.exchange/#/swap?outputCurrency=0x153478b3dD08b7E889ca062abc08059F894bEDb2" target="_blank">
+          {`Buy HSHARE now on Pangolin Exchange`}
+        </StyledLink>
+        <StyledLink style={{color: '#C133FF'}} href="https://traderjoexyz.com/trade?inputCurrency=0x130966628846bfd36ff31a822705796e8cb8c18d&outputCurrency=0xc55036b5348cfb45a932481744645985010d3a44#/" target="_blank">
+          {`Buy WINE now on Trader Joe`}
+        </StyledLink>
+        </StyledCardWrapper>
       </CardContent>
     </Card>
   );

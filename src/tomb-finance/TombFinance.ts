@@ -387,11 +387,11 @@ export class TombFinance {
     }
     const rewardPerSecond = await poolContract.tSharePerSecond();
     if (depositTokenName.startsWith('HERMES-AVAX')) {
-      return rewardPerSecond.mul(35500).div(59500);
+      return rewardPerSecond.mul(29500).div(59500);
     } else if (depositTokenName.startsWith('HERMES-HSHARE')) {
-      return rewardPerSecond.mul(16500).div(59500);
+      return rewardPerSecond.mul(15000).div(59500);
     } else {
-      return rewardPerSecond.mul(16500).div(59500);
+      return rewardPerSecond.mul(15000).div(59500);
     }
   }
 
