@@ -321,29 +321,34 @@ export class TombFinance {
    * @param bank
    * @returns
    */
-     async getPoolAPRsWine(): Promise<PoolStats> {
+     async getPoolAPRsWine(bank: Bank): Promise<PoolStats> {
       if (this.myAccount === undefined) return;
-      const depositToken = this.WINE;
-      const poolContract = this.contracts.PartnerRewardPool;
-      const depositTokenPrice = await this.getDepositTokenPriceInDollars("HSHARE-WINE-LP", depositToken);
-      const stakeInPool = await depositToken.balanceOf(poolContract.address);
-      const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-      const stat = await this.getShareStat();
-      const tokenPerSecond = poolContract.token2PerSecond();
-  
-      const tokenPerHour = tokenPerSecond.mul(60).mul(60);
-      const totalRewardPricePerYear =
-        Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
-      const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
-      const totalStakingTokenInPool =
-        Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
-      const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100;
-      const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100;
-      return {
-        dailyAPR: dailyAPR.toFixed(2).toString(),
-        yearlyAPR: yearlyAPR.toFixed(2).toString(),
-        TVL: TVL.toFixed(2).toString(),
-      };
+    const depositToken = bank.depositToken;
+    const poolContract = this.contracts[bank.contract];
+    const depositTokenPrice = await this.getDepositTokenPriceInDollars(bank.depositTokenName, depositToken);
+    const stakeInPool = await depositToken.balanceOf(bank.address);
+    const TVL = Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+    const stat = bank.earnTokenName === 'HERMES' ? await this.getTombStat() : await this.getShareStat();
+    const tokenPerSecond = await this.getTokenPerSecond(
+      bank.earnTokenName,
+      bank.contract,
+      poolContract,
+      bank.depositTokenName,
+    );
+
+    const tokenPerHour = tokenPerSecond.mul(60).mul(60);
+    const totalRewardPricePerYear =
+      Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24).mul(365)));
+    const totalRewardPricePerDay = Number(stat.priceInDollars) * Number(getDisplayBalance(tokenPerHour.mul(24)));
+    const totalStakingTokenInPool =
+      Number(depositTokenPrice) * Number(getDisplayBalance(stakeInPool, depositToken.decimal));
+    const dailyAPR = (totalRewardPricePerDay / totalStakingTokenInPool) * 100 * 2;
+    const yearlyAPR = (totalRewardPricePerYear / totalStakingTokenInPool) * 100 * 2;
+    return {
+      dailyAPR: dailyAPR.toFixed(2).toString(),
+      yearlyAPR: yearlyAPR.toFixed(2).toString(),
+      TVL: TVL.toFixed(2).toString(),
+    };
     }
 
   /**

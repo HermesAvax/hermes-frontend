@@ -14,7 +14,8 @@ import Harvest from './components/Harvest';
 import HarvestWine from './components/HarvestWine';
 import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
-import useStatsForPool from '../../hooks/useStatsForPool';
+// import useStatsForPool from '../../hooks/useStatsForPool';
+import useStatsForWine from '../../hooks/useStatsForWine';
 // import useRedeem from '../../hooks/useRedeem';
  import { Bank as BankEntity } from '../../tomb-finance';
  import useTombFinance from '../../hooks/useTombFinance';
@@ -38,7 +39,7 @@ const Bank: React.FC = () => {
 
   const { account } = useWallet();
  // const { onRedeem } = useRedeem(bank);
-  const statsOnPool = useStatsForPool(bank);  
+  const statsOnPool = useStatsForWine(bank);  
   return account && bank ? (
     <>
       <PageHeader
