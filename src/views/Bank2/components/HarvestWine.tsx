@@ -16,8 +16,8 @@ import useRedeem from '../../../hooks/useRedeem';
 import { getDisplayBalance } from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Bank } from '../../../tomb-finance';
-import useTombStats from '../../../hooks/useTombStats';
-import useShareStats from '../../../hooks/usetShareStats';
+import useWineStats from '../../../hooks/useWineStats';
+
 
 
 interface HarvestProps {
@@ -26,10 +26,9 @@ interface HarvestProps {
 const HarvestWine: React.FC<HarvestProps> = ({ bank }) => {
   const earnings = useEarnings(bank.contract, 'WINE', bank.poolId);
   const { onReward } = useHarvest(bank);
-  const tombStats = useTombStats();
-  const tShareStats = useShareStats();
+  const wineStats = useWineStats();
 
-  const tokenStats = bank.earnTokenName === 'HSHARE' ? tShareStats : tombStats;
+  const tokenStats = wineStats;
   const tokenPriceInDollars = useMemo(
     () => (tokenStats ? Number(tokenStats.priceInDollars).toFixed(2) : null),
     [tokenStats],
